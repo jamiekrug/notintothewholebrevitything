@@ -1,1 +1,9 @@
+#
+# Ignoring from git repo...
+#
+
+# ColdFusion CFIDE directory
 /www/CFIDE/
+
+# symbolic link for ColdSpring
+/thirdparty/coldspring
