@@ -7,3 +7,6 @@
 
 # symbolic link for ColdSpring
 /thirdparty/coldspring
+
+# temporary stuff
+/temp/
