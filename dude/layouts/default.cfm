@@ -1,13 +1,10 @@
-<html>
-	<head>
-		<!--- title set by a view - there is no default --->
-		<title>FW/1 Skeleton - <cfoutput>#rc.title#</cfoutput></title>
-	</head>
-	<body>
-		<h1>FW/1 Default Layout</h1>
-		<cfoutput>#body#</cfoutput>	<!--- body is result of views --->
-		<p style="font-size: small;">
-			Powered by FW/1 version <cfoutput>#variables.framework.version#</cfoutput>.
-		</p>
-	</body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title><cfoutput>#rc.title#</cfoutput> | notintothewholebrevitything.com</title>
+<link rel="stylesheet" href="/assets/css/main.css" />
+</head>
+<body>
+	<cfoutput>#body#</cfoutput>
+</body>
 </html>

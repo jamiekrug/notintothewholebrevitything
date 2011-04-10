@@ -3,9 +3,11 @@ component hint="Example FW/1 controller."
 
 	/********** CONSTRUCTOR ***************************************************/
 
-	function init()
+	function init( fw )
 		hint="Constructor, passed in the FW/1 instance."
 	{
+		variables.fw = fw;
+
 		return this;
 	}
 
@@ -16,7 +18,7 @@ component hint="Example FW/1 controller."
 	function default( rc )
 		hint="Default action."
 	{
-		rc.when = dateFormat( now() ) & ' ' & timeFormat( now() );
+		rc.title = 'Chat/IM/SMS/Texting Acronyms';
 	}
 
 
