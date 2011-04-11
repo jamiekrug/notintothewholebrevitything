@@ -5,5 +5,8 @@
 # ColdFusion CFIDE directory
 /www/CFIDE/
 
+# MXUnit symbolic link
+/www/mxunit
+
 # temporary stuff
 /temp/
