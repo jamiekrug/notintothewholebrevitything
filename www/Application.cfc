@@ -18,7 +18,7 @@ component extends="framework"
 		dialect = 'MySQLwithInnoDB',
 		flushatrequestend = false,
 		eventhandling = true,
-		//sqlscript = '#expandPath( "/../data/init-data.sql" )#',
+		sqlscript = '#expandPath( "/../data/init-data.sql" )#',
 		logsql = variables.isDev
 	};
 
@@ -40,6 +40,13 @@ component extends="framework"
 		// set this to true to cache the results of fileExists for performance:
 		cacheFileExists = ( !variables.isDev )
 	};
+
+
+	function setupApplication()
+	{
+		// instantiate services (singletons)
+		application.abbreviationService = new dude.model.services.AbbreviationService();
+	}
 
 
 }

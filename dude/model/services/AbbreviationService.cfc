@@ -35,6 +35,12 @@ component hint="AbbreviationService" accessors="true"
 	}
 
 
+	function listAbbreviation()
+	{
+		return getAbbreviationGateway().listAbbreviation();
+	}
+
+
 	function newAbbreviation()
 	{
 		return getAbbreviationGateway().newAbbreviation();

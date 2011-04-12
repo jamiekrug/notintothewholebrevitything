@@ -30,6 +30,12 @@ component
 	}
 
 
+	function listAbbreviation()
+	{
+		return entityLoad( 'Abbreviation' );
+	}
+
+
 	function newAbbreviation()
 	{
 		return entityNew( 'Abbreviation' );

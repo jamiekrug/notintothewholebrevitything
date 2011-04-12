@@ -19,6 +19,8 @@ component hint="Example FW/1 controller."
 		hint="Default action."
 	{
 		rc.title = 'Chat/IM/SMS/Texting Acronyms';
+
+		rc.abbreviations = application.abbreviationService.listAbbreviation();
 	}
 
 
