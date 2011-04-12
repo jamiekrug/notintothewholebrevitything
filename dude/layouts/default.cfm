@@ -5,6 +5,9 @@
 <link rel="stylesheet" href="/assets/css/main.css" />
 </head>
 <body>
-	<cfoutput>#body#</cfoutput>
+	<cfoutput>
+		#view( 'main/success_message' )#
+		#body#
+	</cfoutput>
 </body>
 </html>

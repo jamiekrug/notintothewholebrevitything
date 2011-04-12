@@ -58,6 +58,12 @@ component hint="Abbreviation" persistent="true"
 	}
 
 
+	function setText( required string text )
+	{
+		variables.text = uCase( text );
+	}
+
+
 	/********** PRIVATE *******************************************************/
 
 
