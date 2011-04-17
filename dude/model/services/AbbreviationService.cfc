@@ -1,6 +1,7 @@
 component hint="AbbreviationService" accessors="true"
 {
 	property abbreviationGateway;
+	property validationService;
 
 
 	/********** CONSTRUCTOR ***************************************************/
@@ -53,26 +54,6 @@ component hint="AbbreviationService" accessors="true"
 	}
 
 
-	function saveAbbreviationAndDefinitionByText( required string abbreviationText, required string definitionText )
-	{
-		transaction
-		{
-			var abbreviation = getAbbreviationByText( abbreviationText );
-
-			if ( isNull( abbreviation ) )
-			{
-				var abbreviation = newAbbreviation();
-
-				abbreviation.populate( { text = abbreviationText } );
-			}
-
-			var definition = saveDefinition( { text = definitionText, abbreviation = abbreviation } );
-		}
-
-		return abbreviation;
-	}
-
-
 	function saveAbbreviation( required struct properties )
 	{
 		transaction
@@ -88,12 +69,19 @@ component hint="AbbreviationService" accessors="true"
 
 			abbreviation.populate( properties );
 
-			// TODO: validate
+			var result = getValidationService().validate( abbreviation );
 
-			getAbbreviationGateway().saveAbbreviation( abbreviation );
+			if ( result.getIsSuccess() )
+			{
+				getAbbreviationGateway().saveAbbreviation( abbreviation );
+			}
+			else
+			{
+				transactionRollback();
+			}
 		}
 
-		return abbreviation;
+		return result;
 	}
 
 
@@ -101,7 +89,7 @@ component hint="AbbreviationService" accessors="true"
 	{
 		transaction
 		{
-			if ( isNull( properties.abbreviation ) )
+			if ( isNull( properties.abbreviation ) && !isNull( arguments.abbreviationID ) )
 			{
 				properties.abbreviation = getAbbreviation( abbreviationID );
 			}
@@ -117,12 +105,39 @@ component hint="AbbreviationService" accessors="true"
 
 			definition.populate( properties );
 
-			// TODO: validate
+			var result = getValidationService().validate( definition );
 
-			getAbbreviationGateway().saveDefinition( definition );
+			if ( result.getIsSuccess() )
+			{
+				getAbbreviationGateway().saveDefinition( definition );
+			}
+			else
+			{
+				transactionRollback();
+			}
 		}
 
-		return definition;
+		return result;
+	}
+
+
+	function saveDefinitionByText( required string abbreviationText, required string definitionText )
+	{
+		transaction
+		{
+			var abbreviation = getAbbreviationByText( abbreviationText );
+
+			if ( isNull( abbreviation ) )
+			{
+				var abbreviation = newAbbreviation();
+
+				abbreviation.populate( { text = abbreviationText } );
+			}
+
+			var result = saveDefinition( { text = definitionText, abbreviation = abbreviation } );
+		}
+
+		return result;
 	}
 
 
@@ -132,6 +147,12 @@ component hint="AbbreviationService" accessors="true"
 	private function getAbbreviationGateway()
 	{
 		return variables.abbreviationGateway;
+	}
+
+
+	private function getValidationService()
+	{
+		return application.validationService;
 	}
 
 

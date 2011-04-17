@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validateThis xsi:noNamespaceSchemaLocation="/thirdparty/validateThis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<objectProperties>
+		<property name="text" desc="Abbreviation text">
+			<rule type="required" />
+			<rule type="rangelength">
+				<param name="minlength" value="2" />
+				<param name="maxlength" value="10" />
+			</rule>
+		</property>
+		<property name="definitions" desc="Definition">
+			<rule type="custom" failureMessage="A definition is required.">
+				<param name="methodName" value="hasDefinition" />
+			</rule>
+		</property>
+	</objectProperties>
+</validateThis>

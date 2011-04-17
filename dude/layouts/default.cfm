@@ -6,7 +6,7 @@
 </head>
 <body>
 	<cfoutput>
-		#view( 'main/success_message' )#
+		#view( 'main/alerts' )#
 		#body#
 	</cfoutput>
 </body>

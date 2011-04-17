@@ -38,11 +38,20 @@ component hint="Example FW/1 controller."
 
 	function submit( rc )
 	{
-		var abbreviation = application.abbreviationService.saveAbbreviationAndDefinitionByText( rc.abbreviation_text, rc.definition_text );
+		var result = application.abbreviationService.saveDefinitionByText( rc.abbreviation_text, rc.definition_text );
 
-		rc.successMessage =  "#abbreviation.getText()# definition added!";
+		if ( result.getIsSuccess() )
+		{
+			rc.successMessage =  "Definition added! (#result.getTheObject().getAbbreviation().getText()#: #result.getTheObject().getText()#)";
 
-		variables.fw.redirect( action = 'abbreviation.define', append = 'abbreviation_text,successMessage' );
+			variables.fw.redirect( action = 'abbreviation.define', append = 'abbreviation_text,successMessage' );
+		}
+		else
+		{
+			rc.failureMessage =  "Oops! There was a problem adding your abbreviation/definition...<br /><br />#result.getFailuresAsString()#";
+
+			variables.fw.redirect( action = 'abbreviation.new', append = 'abbreviation_text,failureMessage' );
+		}
 	}
 
 

@@ -4,6 +4,7 @@ component extends="framework"
 	this.name = 'notintothewholebrevitything';
 	this.datasource = 'notintothewholebrevitything';
 	this.mappings[ '/dude' ] = expandPath( '/../dude' );
+	this.mappings[ '/ValidateThis' ] = expandPath( '/../thirdparty/ValidateThis' );
 
 
 	// hack in a development environment flag
@@ -44,8 +45,16 @@ component extends="framework"
 
 	function setupApplication()
 	{
-		// instantiate services (singletons)
+		// abbreviationService
 		application.abbreviationService = new dude.model.services.AbbreviationService();
+
+		// validationService (ValidateThis)
+		var validateThisConfig = {
+			JSRoot = '/thirdparty/js/validatethis/',
+			definitionPath = '/dude/model/beans/',
+			defaultFailureMessagePrefix = ''
+		};
+		application.validationService = new ValidateThis.ValidateThis( validateThisConfig );
 	}
 
 
