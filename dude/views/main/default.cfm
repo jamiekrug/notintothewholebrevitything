@@ -18,5 +18,3 @@
 <cfoutput>
 	#view( 'abbreviation/definition_list' )#
 </cfoutput>
-
-<p><a href="http://im.the.dude.so.thats.what.you.call.me.you.know.that.or.uh.his.dudeness.or.uh.duder.or.el.duderino.if.youre.notintothewholebrevitything.com/">Click here if <em>notintothewholebrevitything.com</em> still carries too much brevity for your taste ;-)</a></p>
