@@ -36,6 +36,24 @@ component hint="AbbreviationService" accessors="true"
 	}
 
 
+	function isAbbreviationUnique( required abbreviation )
+	{
+		if ( isNull( abbreviation.getText() ) )
+		{
+			return false;
+		}
+
+		var existingAbbreviation = getAbbreviationByText( abbreviation.getText() );
+
+		if ( !isNull( existingAbbreviation ) && existingAbbreviation.getID() != abbreviation.getID() )
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+
 	function listAbbreviation()
 	{
 		return getAbbreviationGateway().listAbbreviation();
