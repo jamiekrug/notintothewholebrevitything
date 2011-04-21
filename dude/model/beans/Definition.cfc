@@ -28,6 +28,25 @@ component hint="Definition" persistent="true"
 	/********** PUBLIC ********************************************************/
 
 
+	function isUnique()
+	{
+		if ( isNull( getAbbreviation() ) )
+		{
+			return false;
+		}
+
+		for ( var definition in getAbbreviation().getDefinitions() )
+		{
+			if ( definition.getText() == this.getText() && definition.getID() != this.getID() )
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+
 	function populate( required struct properties )
 	{
 		if ( !isNull( properties.text ) )

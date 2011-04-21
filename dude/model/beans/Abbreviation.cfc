@@ -36,6 +36,12 @@ component hint="Abbreviation" persistent="true"
 	}
 
 
+	function isUnique()
+	{
+		return application.abbreviationService.isAbbreviationUnique( this );
+	}
+
+
 	function populate( required struct properties )
 	{
 		if ( !isNull( properties.text ) )

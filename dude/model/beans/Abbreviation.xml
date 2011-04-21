@@ -7,6 +7,9 @@
 				<param name="minlength" value="2" />
 				<param name="maxlength" value="10" />
 			</rule>
+			<rule type="custom" failureMessage="Abbreviation already exists.">
+				<param name="methodName" value="isUnique" />
+			</rule>
 		</property>
 		<property name="definitions" desc="Definition">
 			<rule type="custom" failureMessage="A definition is required.">
