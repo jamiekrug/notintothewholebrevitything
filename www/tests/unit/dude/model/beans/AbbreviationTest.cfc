@@ -27,7 +27,7 @@ component extends="tests.unit.BaseTestCase"
 		abbreviation.setText( 'TEST' );
 		abbreviation.addDefinition( definition );
 
-		var result = application.validationService.validate( abbreviation );
+		var result = getBeanFactory().getBean( 'validationService' ).validate( abbreviation );
 
 		assertTrue( result.getIsSuccess(), "Validation success should be true." );
 	}
@@ -38,7 +38,7 @@ component extends="tests.unit.BaseTestCase"
 		var abbreviation = entityNew( 'Abbreviation' );
 		abbreviation.setText( 'TEST' );
 
-		var result = application.validationService.validate( abbreviation );
+		var result = getBeanFactory().getBean( 'validationService' ).validate( abbreviation );
 
 		assertFalse( result.getIsSuccess(), "Validation success should be false." );
 
@@ -59,7 +59,7 @@ component extends="tests.unit.BaseTestCase"
 		abbreviation.setText( repeatString( 'X', 11 ) );
 		abbreviation.addDefinition( definition );
 
-		var result = application.validationService.validate( abbreviation );
+		var result = getBeanFactory().getBean( 'validationService' ).validate( abbreviation );
 
 		assertFalse( result.getIsSuccess(), "Validation success should be false." );
 
@@ -80,7 +80,7 @@ component extends="tests.unit.BaseTestCase"
 		abbreviation.setText( 'X' );
 		abbreviation.addDefinition( definition );
 
-		var result = application.validationService.validate( abbreviation );
+		var result = getBeanFactory().getBean( 'validationService' ).validate( abbreviation );
 
 		assertFalse( result.getIsSuccess(), "Validation success should be false." );
 
@@ -100,7 +100,7 @@ component extends="tests.unit.BaseTestCase"
 		var abbreviation = entityNew( 'Abbreviation' );
 		abbreviation.addDefinition( definition );
 
-		var result = application.validationService.validate( abbreviation );
+		var result = getBeanFactory().getBean( 'validationService' ).validate( abbreviation );
 
 		assertFalse( result.getIsSuccess(), "Validation success should be false." );
 

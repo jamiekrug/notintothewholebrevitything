@@ -4,6 +4,7 @@ component extends="framework"
 	this.name = 'notintothewholebrevitything';
 	this.datasource = 'notintothewholebrevitything';
 	this.mappings[ '/dude' ] = expandPath( '/../dude' );
+	this.mappings[ '/coldspring' ] = expandPath( '/../thirdparty/coldspring' );
 	this.mappings[ '/ValidateThis' ] = expandPath( '/../thirdparty/ValidateThis' );
 
 
@@ -45,16 +46,17 @@ component extends="framework"
 
 	function setupApplication()
 	{
-		// abbreviationService
-		application.abbreviationService = new dude.model.services.AbbreviationService();
-
-		// validationService (ValidateThis)
-		var validateThisConfig = {
-			JSRoot = '/thirdparty/js/validatethis/',
-			definitionPath = '/dude/model/beans/',
-			defaultFailureMessagePrefix = ''
+		var defaultProperties = {
+			validateThisConfig_JSRoot = '/thirdparty/js/validatethis/',
+			validateThisConfig_definitionPath = '/dude/model/beans/',
+			validateThisConfig_defaultFailureMessagePrefix = ''
 		};
-		application.validationService = new ValidateThis.ValidateThis( validateThisConfig );
+
+		application.coldspring = createObject( 'component','coldspring.beans.DefaultXmlBeanFactory' ).init( defaultProperties = defaultProperties );
+
+		application.coldspring.loadBeans( '/dude/config/beans.xml' );
+
+		setBeanFactory( application.coldspring ); // set bean factory in framework
 	}
 
 

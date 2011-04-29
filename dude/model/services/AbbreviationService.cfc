@@ -1,7 +1,7 @@
 component hint="AbbreviationService" accessors="true"
 {
-	property abbreviationGateway;
-	property validationService;
+	property name="abbreviationGateway" getter="false";
+	property name="validationService" getter="false";
 
 
 	/********** CONSTRUCTOR ***************************************************/
@@ -9,8 +9,6 @@ component hint="AbbreviationService" accessors="true"
 
 	function init()
 	{
-		setAbbreviationGateway( new dude.model.data.AbbreviationGateway() );
-
 		return this;
 	}
 
@@ -20,19 +18,19 @@ component hint="AbbreviationService" accessors="true"
 
 	function getAbbreviation( required string id )
 	{
-		return getAbbreviationGateway().getAbbreviation( id );
+		return variables.abbreviationGateway.getAbbreviation( id );
 	}
 
 
 	function getAbbreviationByText( required string text )
 	{
-		return getAbbreviationGateway().getAbbreviationByText( text );
+		return variables.abbreviationGateway.getAbbreviationByText( text );
 	}
 
 
 	function getDefinition( required string id )
 	{
-		return getAbbreviationGateway().getDefinition( id );
+		return variables.abbreviationGateway.getDefinition( id );
 	}
 
 
@@ -56,19 +54,19 @@ component hint="AbbreviationService" accessors="true"
 
 	function listAbbreviation()
 	{
-		return getAbbreviationGateway().listAbbreviation();
+		return variables.abbreviationGateway.listAbbreviation();
 	}
 
 
 	function newAbbreviation()
 	{
-		return getAbbreviationGateway().newAbbreviation();
+		return variables.abbreviationGateway.newAbbreviation();
 	}
 
 
 	function newDefinition()
 	{
-		return getAbbreviationGateway().newDefinition();
+		return variables.abbreviationGateway.newDefinition();
 	}
 
 
@@ -87,11 +85,11 @@ component hint="AbbreviationService" accessors="true"
 
 			abbreviation.populate( properties );
 
-			var result = getValidationService().validate( abbreviation );
+			var result = variables.validationService.validate( abbreviation );
 
 			if ( result.getIsSuccess() )
 			{
-				getAbbreviationGateway().saveAbbreviation( abbreviation );
+				variables.abbreviationGateway.saveAbbreviation( abbreviation );
 			}
 			else
 			{
@@ -123,11 +121,11 @@ component hint="AbbreviationService" accessors="true"
 
 			definition.populate( properties );
 
-			var result = getValidationService().validate( definition );
+			var result = variables.validationService.validate( definition );
 
 			if ( result.getIsSuccess() )
 			{
-				getAbbreviationGateway().saveDefinition( definition );
+				variables.abbreviationGateway.saveDefinition( definition );
 			}
 			else
 			{
@@ -160,18 +158,6 @@ component hint="AbbreviationService" accessors="true"
 
 
 	/********** PRIVATE *******************************************************/
-
-
-	private function getAbbreviationGateway()
-	{
-		return variables.abbreviationGateway;
-	}
-
-
-	private function getValidationService()
-	{
-		return application.validationService;
-	}
 
 
 }

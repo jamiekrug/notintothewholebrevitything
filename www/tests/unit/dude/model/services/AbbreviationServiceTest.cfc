@@ -1,5 +1,3 @@
-import dude.model.services.AbbreviationService;
-
 component extends="tests.unit.BaseTestCase"
 {
 
@@ -9,7 +7,7 @@ component extends="tests.unit.BaseTestCase"
 
 	function beforeTests()
 	{
-		variables.abbreviationService = new AbbreviationService();
+		variables.abbreviationService = getBeanFactory().getBean( 'abbreviationService' );
 	}
 
 
