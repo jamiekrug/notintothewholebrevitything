@@ -23,11 +23,18 @@ component hint="Example FW/1 controller."
 
 		rc.title = 'Chat/IM/SMS/Texting Acronyms';
 
-		rc.abbreviations = application.abbreviationService.listAbbreviation();
+		rc.abbreviations = variables.abbreviationService.listAbbreviation();
 	}
 
 
 	/********** PRIVATE *******************************************************/
 
+
+	/********** BEANS (DI) ****************************************************/
+
+	function setAbbreviationService( abbreviationService )
+	{
+		variables.abbreviationService = arguments.abbreviationService;
+	}
 
 }

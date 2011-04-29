@@ -38,7 +38,7 @@ component hint="Abbreviation" persistent="true"
 
 	function isUnique()
 	{
-		return application.abbreviationService.isAbbreviationUnique( this );
+		return application.coldspring.getBean( 'abbreviationService' ).isAbbreviationUnique( this );
 	}
 
 

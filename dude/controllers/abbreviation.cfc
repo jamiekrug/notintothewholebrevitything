@@ -25,7 +25,7 @@ component hint="Example FW/1 controller."
 	function define( rc )
 		hint="Default action."
 	{
-		rc.abbreviation = application.abbreviationService.getAbbreviationByText( rc.abbreviation_text );
+		rc.abbreviation = variables.abbreviationService.getAbbreviationByText( rc.abbreviation_text );
 
 		if ( isNull( rc.abbreviation ) )
 		{
@@ -38,7 +38,7 @@ component hint="Example FW/1 controller."
 
 	function submit( rc )
 	{
-		var result = application.abbreviationService.saveDefinitionByText( rc.abbreviation_text, rc.definition_text );
+		var result = variables.abbreviationService.saveDefinitionByText( rc.abbreviation_text, rc.definition_text );
 
 		if ( result.getIsSuccess() )
 		{
@@ -57,5 +57,12 @@ component hint="Example FW/1 controller."
 
 	/********** PRIVATE *******************************************************/
 
+
+	/********** BEANS (DI) ****************************************************/
+
+	function setAbbreviationService( abbreviationService )
+	{
+		variables.abbreviationService = arguments.abbreviationService;
+	}
 
 }

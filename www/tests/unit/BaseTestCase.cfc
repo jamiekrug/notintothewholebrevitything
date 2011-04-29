@@ -48,4 +48,18 @@ component extends="mxunit.framework.TestCase"
 	/********** PRIVATE *******************************************************/
 
 
+	private function getBeanFactory( isReload = false )
+	{
+		/*if ( !structKeyExists( variables, 'beanFactory' ) || isReload )
+		{
+			variables.beanFactory = createObject( 'component','coldspring.beans.DefaultXmlBeanFactory' ).init( {} );
+
+			variables.beanFactory.loadBeans( '/schools/config/beans.xml' );
+		}
+
+		return variables.beanFactory;*/
+		return application.coldspring;
+	}
+
+
 }

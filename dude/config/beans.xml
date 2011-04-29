@@ -1,0 +1,32 @@
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans default-autowire="byName">
+
+	<bean id="abbreviationGateway" class="dude.model.data.AbbreviationGateway" />
+
+	<bean id="abbreviationService" class="dude.model.services.AbbreviationService">
+		<property name="validationService">
+			<ref bean="validationService" />
+		</property>
+		<property name="abbreviationGateway">
+			<ref bean="abbreviationGateway" />
+		</property>
+	</bean>
+
+	<bean id="validationService" class="ValidateThis.ValidateThis">
+		<constructor-arg name="ValidateThisConfig">
+			<map>
+				<entry key="jsRoot">
+					<value>${validateThisConfig_jsRoot}</value>
+				</entry>
+				<entry key="definitionPath">
+					<value>${validateThisConfig_definitionPath}</value>
+				</entry>
+				<entry key="defaultFailureMessagePrefix">
+					<value>${validateThisConfig_defaultFailureMessagePrefix}</value>
+				</entry>
+			</map>
+		</constructor-arg>
+	</bean>
+
+</beans>
