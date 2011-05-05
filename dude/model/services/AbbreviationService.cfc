@@ -1,7 +1,5 @@
-component hint="AbbreviationService" accessors="true"
+component hint="AbbreviationService" extends="dude.model.orm.AbstractService" accessors="true"
 {
-	property name="abbreviationGateway" getter="false";
-	property name="validationService" getter="false";
 
 
 	/********** CONSTRUCTOR ***************************************************/
@@ -9,29 +7,11 @@ component hint="AbbreviationService" accessors="true"
 
 	function init()
 	{
-		return this;
+		return super.init();
 	}
 
 
 	/********** PUBLIC ********************************************************/
-
-
-	function getAbbreviation( required string id )
-	{
-		return variables.abbreviationGateway.getAbbreviation( id );
-	}
-
-
-	function getAbbreviationByText( required string text )
-	{
-		return variables.abbreviationGateway.getAbbreviationByText( text );
-	}
-
-
-	function getDefinition( required string id )
-	{
-		return variables.abbreviationGateway.getDefinition( id );
-	}
 
 
 	function isAbbreviationUnique( required abbreviation )
@@ -41,7 +21,7 @@ component hint="AbbreviationService" accessors="true"
 			return false;
 		}
 
-		var existingAbbreviation = getAbbreviationByText( abbreviation.getText() );
+		var existingAbbreviation = getGateway().getAbbreviationByText( abbreviation.getText() );
 
 		if ( !isNull( existingAbbreviation ) && existingAbbreviation.getID() != abbreviation.getID() )
 		{
@@ -52,49 +32,20 @@ component hint="AbbreviationService" accessors="true"
 	}
 
 
-	function listAbbreviation()
-	{
-		return variables.abbreviationGateway.listAbbreviation();
-	}
-
-
-	function newAbbreviation()
-	{
-		return variables.abbreviationGateway.newAbbreviation();
-	}
-
-
-	function newDefinition()
-	{
-		return variables.abbreviationGateway.newDefinition();
-	}
-
-
 	function saveAbbreviation( required struct properties )
 	{
 		transaction
 		{
 			if ( isNull( properties.id ) )
 			{
-				var abbreviation = newAbbreviation();
+				var abbreviation = getGateway().newAbbreviation();
 			}
 			else
 			{
-				var abbreviation = getAbbreviation( properties.id );
+				var abbreviation = getGateway().getAbbreviation( properties.id, true );
 			}
 
-			abbreviation.populate( properties );
-
-			var result = variables.validationService.validate( abbreviation );
-
-			if ( result.getIsSuccess() )
-			{
-				variables.abbreviationGateway.saveAbbreviation( abbreviation );
-			}
-			else
-			{
-				transactionRollback();
-			}
+			var result = populateAndSaveEntity( abbreviation, properties );
 		}
 
 		return result;
@@ -107,30 +58,19 @@ component hint="AbbreviationService" accessors="true"
 		{
 			if ( isNull( properties.abbreviation ) && !isNull( arguments.abbreviationID ) )
 			{
-				properties.abbreviation = getAbbreviation( abbreviationID );
+				properties.abbreviation = getGateway().getAbbreviation( abbreviationID, true );
 			}
 
 			if ( isNull( properties.id ) )
 			{
-				var definition = newDefinition();
+				var definition = getGateway().newDefinition();
 			}
 			else
 			{
-				var definition = getDefinition( properties.id );
+				var definition = getGateway().getDefinition( properties.id, true );
 			}
 
-			definition.populate( properties );
-
-			var result = variables.validationService.validate( definition );
-
-			if ( result.getIsSuccess() )
-			{
-				variables.abbreviationGateway.saveDefinition( definition );
-			}
-			else
-			{
-				transactionRollback();
-			}
+			var result = populateAndSaveEntity( definition, properties );
 		}
 
 		return result;
@@ -141,14 +81,9 @@ component hint="AbbreviationService" accessors="true"
 	{
 		transaction
 		{
-			var abbreviation = getAbbreviationByText( abbreviationText );
+			var abbreviation = getGateway().getAbbreviationByText( abbreviationText, true );
 
-			if ( isNull( abbreviation ) )
-			{
-				var abbreviation = newAbbreviation();
-
-				abbreviation.populate( { text = abbreviationText } );
-			}
+			abbreviation.populate( { text = abbreviationText } );
 
 			var result = saveDefinition( { text = definitionText, abbreviation = abbreviation } );
 		}
