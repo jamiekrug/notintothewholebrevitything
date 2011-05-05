@@ -5,13 +5,15 @@
 	<bean id="abbreviationGateway" class="dude.model.data.AbbreviationGateway" />
 
 	<bean id="abbreviationService" class="dude.model.services.AbbreviationService">
+		<property name="gateway">
+			<ref bean="abbreviationGateway" />
+		</property>
 		<property name="validationService">
 			<ref bean="validationService" />
 		</property>
-		<property name="abbreviationGateway">
-			<ref bean="abbreviationGateway" />
-		</property>
 	</bean>
+
+	<bean id="invoker" class="dude.util.Invoker" />
 
 	<bean id="validationService" class="ValidateThis.ValidateThis">
 		<constructor-arg name="ValidateThisConfig">
