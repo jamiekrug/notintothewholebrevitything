@@ -1,63 +1,15 @@
-component
+component extends="dude.model.orm.AbstractGateway"
 {
 
 	/********** CONSTRUCTOR ***************************************************/
 
 	function init()
 	{
-		return this;
+		return super.init();
 	}
 
 
 	/********** PUBLIC ********************************************************/
-
-
-	function getAbbreviation( required string id )
-	{
-		return entityLoadByPK( 'Abbreviation', id );
-	}
-
-
-	function getAbbreviationByText( required string text )
-	{
-		return entityLoad( 'Abbreviation', { text = text }, true );
-	}
-
-
-	function getDefinition( required string id )
-	{
-		return entityLoadByPK( 'Definition', id );
-	}
-
-
-	function listAbbreviation()
-	{
-		return entityLoad( 'Abbreviation' );
-	}
-
-
-	function newAbbreviation()
-	{
-		return entityNew( 'Abbreviation' );
-	}
-
-
-	function newDefinition()
-	{
-		return entityNew( 'Definition' );
-	}
-
-
-	function saveAbbreviation( required abbreviation )
-	{
-		entitySave( abbreviation );
-	}
-
-
-	function saveDefinition( required definition )
-	{
-		entitySave( definition );
-	}
 
 
 	/********** PRIVATE *******************************************************/
