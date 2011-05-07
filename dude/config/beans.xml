@@ -2,18 +2,31 @@
 
 <beans default-autowire="byName">
 
+
+	<!-- Data Gateways -->
+
 	<bean id="abbreviationGateway" class="dude.model.data.AbbreviationGateway" />
 
-	<bean id="abbreviationService" class="dude.model.services.AbbreviationService">
-		<property name="gateway">
-			<ref bean="abbreviationGateway" />
+
+	<!-- Services -->
+
+	<bean id="abbreviationService" class="coldspring.aop.framework.ProxyFactoryBean">
+		<property name="target">
+			<bean class="dude.model.services.AbbreviationService">
+				<property name="gateway">
+					<ref bean="abbreviationGateway" />
+				</property>
+				<property name="validationService">
+					<ref bean="validationService" />
+				</property>
+			</bean>
 		</property>
-		<property name="validationService">
-			<ref bean="validationService" />
+		<property name="interceptorNames">
+			<list>
+				<value>genericServiceTransactionAdvisor</value>
+			</list>
 		</property>
 	</bean>
-
-	<bean id="invoker" class="dude.util.Invoker" />
 
 	<bean id="validationService" class="ValidateThis.ValidateThis">
 		<constructor-arg name="ValidateThisConfig">
@@ -29,6 +42,25 @@
 				</entry>
 			</map>
 		</constructor-arg>
+	</bean>
+
+
+	<!-- Utilities -->
+
+	<bean id="invoker" class="dude.util.Invoker" />
+
+
+	<!-- AOP transaction advice, for services -->
+
+	<bean id="transactionAdvice" class="boisvert.TransactionAdvice" />
+
+	<bean id="genericServiceTransactionAdvisor" class="coldspring.aop.support.NamedMethodPointcutAdvisor">
+		<property name="advice">
+			<ref bean="transactionAdvice" />
+		</property>
+		<property name="mappedNames">
+			<value>create*,delete*,save*,update*</value>
+		</property>
 	</bean>
 
 </beans>

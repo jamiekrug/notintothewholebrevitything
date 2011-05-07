@@ -4,6 +4,7 @@ component extends="framework"
 	this.name = 'notintothewholebrevitything';
 	this.datasource = 'notintothewholebrevitything';
 	this.mappings[ '/dude' ] = expandPath( '/../dude' );
+	this.mappings[ '/boisvert' ] = expandPath( '/../thirdparty/boisvert' );
 	this.mappings[ '/coldspring' ] = expandPath( '/../thirdparty/coldspring' );
 	this.mappings[ '/ValidateThis' ] = expandPath( '/../thirdparty/ValidateThis' );
 
