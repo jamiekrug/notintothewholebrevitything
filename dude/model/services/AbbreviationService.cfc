@@ -34,61 +34,46 @@ component hint="AbbreviationService" extends="dude.model.orm.AbstractService" ac
 
 	function saveAbbreviation( required struct properties )
 	{
-		transaction
+		if ( isNull( properties.id ) )
 		{
-			if ( isNull( properties.id ) )
-			{
-				var abbreviation = getGateway().newAbbreviation();
-			}
-			else
-			{
-				var abbreviation = getGateway().getAbbreviation( properties.id, true );
-			}
-
-			var result = populateAndSaveEntity( abbreviation, properties );
+			var abbreviation = getGateway().newAbbreviation();
+		}
+		else
+		{
+			var abbreviation = getGateway().getAbbreviation( properties.id, true );
 		}
 
-		return result;
+		return populateAndSaveEntity( abbreviation, properties );
 	}
 
 
 	function saveDefinition( required struct properties, string abbreviationID )
 	{
-		transaction
+		if ( isNull( properties.abbreviation ) && !isNull( arguments.abbreviationID ) )
 		{
-			if ( isNull( properties.abbreviation ) && !isNull( arguments.abbreviationID ) )
-			{
-				properties.abbreviation = getGateway().getAbbreviation( abbreviationID, true );
-			}
-
-			if ( isNull( properties.id ) )
-			{
-				var definition = getGateway().newDefinition();
-			}
-			else
-			{
-				var definition = getGateway().getDefinition( properties.id, true );
-			}
-
-			var result = populateAndSaveEntity( definition, properties );
+			properties.abbreviation = getGateway().getAbbreviation( abbreviationID, true );
 		}
 
-		return result;
+		if ( isNull( properties.id ) )
+		{
+			var definition = getGateway().newDefinition();
+		}
+		else
+		{
+			var definition = getGateway().getDefinition( properties.id, true );
+		}
+
+		return populateAndSaveEntity( definition, properties );
 	}
 
 
 	function saveDefinitionByText( required string abbreviationText, required string definitionText )
 	{
-		transaction
-		{
-			var abbreviation = getGateway().getAbbreviationByText( abbreviationText, true );
+		var abbreviation = getGateway().getAbbreviationByText( abbreviationText, true );
 
-			abbreviation.populate( { text = abbreviationText } );
+		abbreviation.populate( { text = abbreviationText } );
 
-			var result = saveDefinition( { text = definitionText, abbreviation = abbreviation } );
-		}
-
-		return result;
+		return saveDefinition( { text = definitionText, abbreviation = abbreviation } );
 	}
 
 
