@@ -1,33 +1,5 @@
-component extends="tests.unit.BaseTestCase"
+component extends="tests.unit.AbstractHibernateTestCase"
 {
-
-
-	/********** SETUP/TEARDOWN TESTS ************************************************************/
-
-
-	function setup()
-	{
-		super.setup();
-
-		ormReload();
-
-		ormClearSession();
-
-		ormGetSession().beginTransaction();
-	}
-
-
-	function tearDown()
-	{
-		super.tearDown();
-
-		if( ormGetSession().getTransaction().isActive() )
-		{
-			ormGetSession().getTransaction().rollback();
-
-			ormClearSession();
-		}
-	}
 
 
 	/********** PUBLIC ************************************************************/

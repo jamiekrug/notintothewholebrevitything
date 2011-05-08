@@ -1,4 +1,4 @@
-component extends="tests.unit.BaseTestCase"
+component extends="tests.unit.AbstractTestCase"
 {
 
 
