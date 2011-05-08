@@ -25,8 +25,11 @@ component mappedsuperclass="true"
 
 	function preInsert()
 	{
-		setCreated( now() );
-		setLastModified( now() );
+		var timestamp = now();
+
+		setCreated( timestamp );
+
+		setLastModified( timestamp );
 	}
 
 
