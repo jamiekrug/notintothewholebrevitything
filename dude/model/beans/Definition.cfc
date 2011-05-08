@@ -1,11 +1,5 @@
-component hint="Definition" persistent="true"
+component hint="Definition" extends="dude.model.orm.AbstractPersistentEntity" persistent="true"
 {
-	property name="id" fieldtype="id" generator="assigned" ormtype="string" length="32" notnull="true";
-
-	property name="created" ormtype="timestamp" notnull="true";
-
-	property name="lastModified" ormtype="timestamp" notnull="true";
-
 	property name="text" ormtype="string" length="100" notnull="true";
 
 	property name="abbreviation" fieldtype="many-to-one" fkcolumn="abbreviationID" cfc="Abbreviation" notnull="true" cascade="save-update";
@@ -16,10 +10,7 @@ component hint="Definition" persistent="true"
 
 	function init()
 	{
-		if ( isNull( getID() ) )
-		{
-			setID( getNewID() );
-		}
+		super.init();
 
 		return this;
 	}
@@ -61,19 +52,6 @@ component hint="Definition" persistent="true"
 	}
 
 
-	function preInsert()
-	{
-		setCreated( now() );
-		setLastModified( now() );
-	}
-
-
-	function preUpdate()
-	{
-		setLastModified( now() );
-	}
-
-
 	function setAbbreviation( abbreviation )
 	{
 		if ( !isNull( arguments.abbreviation ) )
@@ -89,12 +67,6 @@ component hint="Definition" persistent="true"
 
 
 	/********** PRIVATE *******************************************************/
-
-
-	private function getNewID()
-	{
-		return replace( createUUID(), '-', '', 'all' );
-	}
 
 
 }
