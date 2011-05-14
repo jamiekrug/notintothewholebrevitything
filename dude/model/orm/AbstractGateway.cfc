@@ -1,5 +1,5 @@
 /**
- * GenericDAO.cfc -- generic ORM CRUD methods and dynamic methods by convention via onMissingMethod.
+ * AbstractGateway.cfc -- generic ORM CRUD methods and dynamic methods by convention via onMissingMethod.
  *
  * See all onMissing* method comments and other method signatures for usage.
  *
