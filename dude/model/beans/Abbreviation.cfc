@@ -4,6 +4,8 @@ component hint="Abbreviation" extends="dude.model.orm.AbstractPersistentEntity" 
 
 	property name="definitions" singularname="definition" fieldtype="one-to-many" cfc="Definition" fkcolumn="abbreviationID" orderby="created ASC" inverse="true" cascade="all-delete-orphan";
 
+	property name="abbreviationService" persistent="false";
+
 
 	/********** CONSTRUCTOR ***************************************************/
 
@@ -13,6 +15,8 @@ component hint="Abbreviation" extends="dude.model.orm.AbstractPersistentEntity" 
 		super.init();
 
 		variables.definitions = [];
+
+		setAbbreviationService( application.coldspring.getBean( 'abbreviationService' ) );
 
 		return this;
 	}
@@ -29,7 +33,7 @@ component hint="Abbreviation" extends="dude.model.orm.AbstractPersistentEntity" 
 
 	function isUnique()
 	{
-		return application.coldspring.getBean( 'abbreviationService' ).isAbbreviationUnique( this );
+		return getAbbreviationService().isAbbreviationUnique( this );
 	}
 
 
